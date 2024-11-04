@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import { appStore } from './store/store'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import RootLayout from "./components/layout/RootLayout";
@@ -9,6 +9,7 @@ import Profile from "./components/profile/Profile";
 import AuthPage from "./components/auth/AuthPage";
 import EditProfile from "./components/profile/EditProfile";
 import CreatePost from "./components/CreatePost";
+import HomePage from "./components/HomePage";
 
 function App() {
   const router = createBrowserRouter([
@@ -25,7 +26,11 @@ function App() {
       element: <RootLayout />,
       children: [
         {
-          path: "/profile",
+          index: true,
+          element: <HomePage />
+        },
+        {
+          path: "/:username",
           element: <Profile />,
         },
         {
@@ -33,8 +38,8 @@ function App() {
           element: <EditProfile />,
         },
         {
-          path:"/create",
-          element:<CreatePost/>
+          path: "/create",
+          element: <CreatePost />
         }
       ],
     },

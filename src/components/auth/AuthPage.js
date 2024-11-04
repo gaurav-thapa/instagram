@@ -10,9 +10,10 @@ const AuthPage = () => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const userAction = async (user) => {
     // console.log("creating user...");
-    console.log(user);
+    // console.log(user);
     const urlEndpoint = signInMode ? "user/login" : "user/create";
     const res = await fetch(backendServerURL + urlEndpoint, {
       method: "POST",
@@ -34,7 +35,7 @@ const AuthPage = () => {
           profile_picture: resData.PROFILE_PICTURE,
         })
       );
-      navigate("/");
+      signInMode ? navigate('/') : navigate("/signup/editProfile");
     }
   };
   const onFormSubmitHandler = (e) => {

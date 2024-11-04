@@ -36,7 +36,7 @@ const Navbar = () => {
         <Link className="w-full" to="/create">
           <NavItem itemName={"Create"} iconClass={"bi bi-plus-square"} />
         </Link>
-        <Link className="w-full" to={"/profile"}>
+        <Link className="w-full" to={"/a"}>
           <NavItem itemName={"Profile"} image={"true"} />
         </Link>
       </div>

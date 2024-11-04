@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom'
 
 const Intro = () => {
   const introData = useSelector((store) => store.userSlice);
@@ -23,9 +24,11 @@ const Intro = () => {
       <div className="flex flex-col gap-5">
         <div className="flex gap-5">
           <div>{username}</div>
-          <button className="bg-gray-800 py-1 px-4 rounded-lg">
-            Edit Profile
-          </button>
+          <Link to={'/profile/edit'}>
+            <button className="bg-gray-800 py-1 px-4 rounded-lg">
+              Edit Profile
+            </button>
+          </Link>
         </div>
         <div className="flex gap-10">
           <div>{postCount} posts</div>

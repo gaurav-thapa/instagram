@@ -6,27 +6,25 @@ import { backendServerURL } from "../../utils/util";
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { userSliceActions } from "../../store/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userID = useSelector((state) => state.userSlice.userID);
+  const { username } = useParams();
+
+  // const userID = useSelector((state) => state.userSlice.username);
   const { data, error, isPending } = useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
-      const res = await fetch(backendServerURL + `user/profile/${userID}`);
+      const res = await fetch(backendServerURL + `user/profile/${username}`);
       const resData = await res.json();
       return resData;
     },
-    staleTime:Infinity,
-    enabled: userID !== null,
+    staleTime: Infinity,
+    enabled: username !== null,
   });
-  useEffect(() => {
-    if (userID === null) {
-      navigate("/auth");
-    }
-  }, );
+
   if (isPending) {
     return "Loading...";
   }
@@ -35,6 +33,10 @@ const Profile = () => {
   }
   if (data) {
     const payload = {
+      'userID': data.user.USER_ID,
+      'username': data.user.USERNAME,
+      'name': data.user.NAME,
+      'profile_picture': data.user.PROFILE_PICTURE,
       'followers': data.followers,
       'following': data.following,
       'posts': data.posts,
